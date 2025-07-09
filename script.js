@@ -35,9 +35,9 @@ class LudoGame {
 
     // Properti Timer
     this.timer = null;
-    this.stealTimer = null;
+    // this.stealTimer = null;
     this.timeLeft = 0;
-    this.stealTimeLeft = 0;
+    // this.stealTimeLeft = 0;
 
     // Konfigurasi Papan
     this.boardLayout = this.createBoardLayout();
@@ -459,6 +459,9 @@ class LudoGame {
         this.handleSteal(e.target.dataset.team)
       );
     });
+    document
+      .getElementById("skipStealButton")
+      .addEventListener("click", () => this.nextTurn());
     document.getElementById("playAgain").addEventListener("click", () => {
       document.getElementById("gameOverModal").style.display = "none";
       this.resetGame();
@@ -497,9 +500,9 @@ class LudoGame {
    */
   resetGame() {
     if (this.timer) clearInterval(this.timer);
-    if (this.stealTimer) clearInterval(this.stealTimer);
+    // if (this.stealTimer) clearInterval(this.stealTimer);
     this.timer = null;
-    this.stealTimer = null;
+    // this.stealTimer = null;
 
     this.gameStarted = false;
     this.gameEnded = false;
@@ -510,7 +513,7 @@ class LudoGame {
     this.isSpecialZoneQuestion = false;
     this.turnToResume = null;
     this.timeLeft = 0;
-    this.stealTimeLeft = 0;
+    // this.stealTimeLeft = 0;
     this.scores = { red: 0, blue: 0, yellow: 0, green: 0 };
     this.positions = { red: -1, blue: -1, yellow: -1, green: -1 };
 
@@ -552,9 +555,9 @@ class LudoGame {
     this.currentDifficulty = null;
 
     if (this.timer) clearInterval(this.timer);
-    if (this.stealTimer) clearInterval(this.stealTimer);
+    // if (this.stealTimer) clearInterval(this.stealTimer);
     this.timer = null;
-    this.stealTimer = null;
+    // this.stealTimer = null;
 
     const sections = [
       "operatorSection",
@@ -812,17 +815,17 @@ class LudoGame {
         btn.dataset.team === currentTeamName ? "none" : "inline-block";
     });
 
-    this.stealTimeLeft = 5;
-    this.updateStealTimer();
-    this.stealTimer = setInterval(() => {
-      this.stealTimeLeft--;
-      this.updateStealTimer();
-      if (this.stealTimeLeft <= 0) {
-        clearInterval(this.stealTimer);
-        this.stealTimer = null;
-        this.nextTurn();
-      }
-    }, 1000);
+    // this.stealTimeLeft = 5;
+    // this.updateStealTimer();
+    // this.stealTimer = setInterval(() => {
+    //   this.stealTimeLeft--;
+    //   this.updateStealTimer();
+    //   if (this.stealTimeLeft <= 0) {
+    //     clearInterval(this.stealTimer);
+    //     this.stealTimer = null;
+    //     this.nextTurn();
+    //   }
+    // }, 1000);
     document.getElementById("statusText").textContent =
       "Jawaban salah! Tim lain dapat merebut soal ini.";
   }
@@ -833,8 +836,8 @@ class LudoGame {
    */
   handleSteal(team) {
     if (!this.isStealPhase) return;
-    if (this.stealTimer) clearInterval(this.stealTimer);
-    this.stealTimer = null;
+    // if (this.stealTimer) clearInterval(this.stealTimer);
+    // this.stealTimer = null;
     this.stealingTeam = team;
 
     document.getElementById("stealSection").style.display = "none";
@@ -1158,14 +1161,6 @@ class LudoGame {
     }
     const questionCounter = document.getElementById("questionCounter");
     if (questionCounter) questionCounter.textContent = this.questionCount;
-  }
-
-  /**
-   * @description Memperbarui tampilan timer fase rebutan.
-   */
-  updateStealTimer() {
-    const stealTimerEl = document.getElementById("stealTimer");
-    if (stealTimerEl) stealTimerEl.textContent = this.stealTimeLeft;
   }
 
   // =======================================================================
