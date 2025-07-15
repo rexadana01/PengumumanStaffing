@@ -910,7 +910,7 @@ class LudoGame {
    * @param {number} steps - Jumlah langkah mundur.
    * @async
    */
-async movePieceBackward(team, steps) {
+  async movePieceBackward(team, steps) {
     if (this.isAnimating) return;
     this.isAnimating = true;
     const piece = document.getElementById(`piece-${team}`);
