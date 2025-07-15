@@ -913,11 +913,10 @@ class LudoGame {
   async movePieceBackward(team, steps) {
     if (this.isAnimating) return;
     this.isAnimating = true;
-    const piece = document.getElementById(`piece-${team}`);
+    const piece = document.getElementById('piece-${team}');
     const currentPosition = this.positions[team];
     const teamPath = this.paths[team];
     const newPosition = Math.max(currentPosition - steps, 0);
-
     if (newPosition < 0) {
       await this.sendToBasecamp(team);
       this.isAnimating = false;
@@ -931,9 +930,9 @@ class LudoGame {
       teamPath
     );
     this.positions[team] = newPosition;
+    this.checkCollisions(team, newPosition);
     this.isAnimating = false;
   }
-
   /**
    * @description Memeriksa tabrakan dan menangani efeknya.
    * @param {string} team - Tim yang baru saja bergerak.
